@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee ID Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f6f9;
+    }
+    .container {
+      max-width: 450px;
+      margin: 40px auto;
+      padding: 25px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      color: #555;
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 15px;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      background-color: #2563eb;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #e0f2fe;
+      border: 1px solid #bae6fd;
+      border-radius: 4px;
+      color: #0369a1;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Employee ID Generator</h2>
+  
+  <label for="name">Full Name:</label>
+  <input type="text" id="name" placeholder="Enter employee name">
+
+  <label for="department">Department:</label>
+  <select id="department">
+    <option value="SWP">Swimming Pool</option>
+    <option value="FRK">Frisking Staff</option>
+    <option value="MTD">MTD</option>
+    <option value="MTS">MTS</option>
+    <option value="NUR">Nursing</option>
+    <option value="HKP">Housekeeping</option>
+  </select>
+
+  <button onclick="generateID()">Generate ID</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  function generateID() {
+    const nameInput = document.getElementById('name').value.trim();
+    const dept = document.getElementById('department').value;
+    const resultDiv = document.getElementById('result');
+    
+    if (nameInput === "") {
+      alert("Please enter a name");
+      return;
+    }
+
+    // Clean name initials (take first letters of words)
+    const words = nameInput.split(/\s+/);
+    let initials = "";
+    if (words.length > 1) {
+      initials = (words[0][0] + words[1][0]).toUpperCase();
+    } else {
+      initials = nameInput.substring(0, 2).toUpperCase();
+    }
+
+    // Generate random 4-digit unique number
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    const employeeID = `${dept}-${initials}-${randomNum}`;
+
+    resultDiv.style.display = "block";
+    resultDiv.innerText = "Generated Employee ID: " + employeeID;
+  }
+</script>
+
+</body>
+</html>
